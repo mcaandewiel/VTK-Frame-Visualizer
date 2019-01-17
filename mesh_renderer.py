@@ -1,6 +1,8 @@
+#   @author Christian aan de Wiel
+#   Mesh Renderer Module
+
 import vtk
 
-# Mesh Renderer Module
 class MeshRenderer:
     def __init__(self, input, color):
         self.imageFlip = vtk.vtkTransformPolyDataFilter()

@@ -1,7 +1,12 @@
+#   @author Christian aan de Wiel
+#   Visualizer Module
+
 import vtk
 import math
 
 from vtk import vtkMath
+
+# Local Imports
 from volume_reader import VolumeReader
 from poly_reader import PolyReader
 from volume_renderer import VolumeRenderer
@@ -9,8 +14,9 @@ from volume_slice_renderer import VolumeSliceRenderer
 from mesh_renderer import MeshRenderer
 from gui import GUI
 
-# Visualizer Module
 class Visualizer:
+
+    # Keyboard input
     def onKeyPress(self, obj, event):
         sym = obj.GetKeySym()
         print(sym)
@@ -65,6 +71,7 @@ class Visualizer:
         
         self.window.Render()
 
+    # Mouse input
     def onMouseMove(self, obj, event):
         (lastX, lastY) = self.interactor.GetLastEventPosition()
         (mouseX, mouseY) = self.interactor.GetEventPosition()
@@ -82,6 +89,7 @@ class Visualizer:
         else:
             pass
 
+    # Picking tool callback
     def annotatePick(self, object, event):
         if (self.point_amount == 2):
             print("Emptying points")
@@ -150,29 +158,34 @@ class Visualizer:
 
         self.is_slicing = False
 
-        # Initialize the renderer
+        # Initialize both renderers
         self.leftRenderer = vtk.vtkRenderer()
         self.rightRenderer = vtk.vtkRenderer()
 
+        # Add GUI to the right renderer
         self.rightRenderer.AddActor2D(self.gui.axis_text_actor)
         self.rightRenderer.AddActor2D(self.gui.file_text_actor)
         self.rightRenderer.AddActor2D(self.gui.distance_text_actor)
 
+        # Set viewports of the renderers
         leftViewport = [0.0, 0.0, 0.5, 1.0]
         rightViewport = [0.5, 0.0, 1.0, 1.0]
 
         self.leftRenderer.SetViewport(leftViewport)
-        self.leftRenderer.SetBackground(1.0, 1.0, 1.0)
         self.rightRenderer.SetViewport(rightViewport)
+        self.leftRenderer.SetBackground(1.0, 1.0, 1.0)
+        
 
         # Initialize the picking tool
         self.picker = vtk.vtkVolumePicker()
         self.picker.AddObserver("EndPickEvent", self.annotatePick)
 
-        # create the reader and initial renderer
+        # Intialize the reader
         self.reader = VolumeReader(directory, self, readScalars=True)
         self.volume = None
         self.mesh = None
+
+        # Initialize picker tool attributes
         self.point_ids = []
         self.point_amount = 0
         self.point_positions = []
@@ -180,7 +193,7 @@ class Visualizer:
         self.line_indices = vtk.vtkCellArray()
         self.point_poly_data = vtk.vtkPolyData()
 
-        # The toggle mode we're in
+        # Initialize default mode
         self.mode = 1
         self.visible = [0, 400, 0, 400, 40, 100]
         self.volThres = [100, 1000]
@@ -188,7 +201,7 @@ class Visualizer:
         self.smooth = 2
         self.stddev = 2
 
-        # By default toggle the volume
+        # By default toggle the volume and slicer
         self.toggleVolume()
         self.toggleSlice()
 
@@ -196,7 +209,7 @@ class Visualizer:
         self.window = vtk.vtkRenderWindow()
         self.window.AddRenderer(self.leftRenderer)
         self.window.AddRenderer(self.rightRenderer)
-        self.window.SetSize(1200, 1200)
+        self.window.SetSize(1280, 720)
         self.interactor = vtk.vtkRenderWindowInteractor()
         self.interactor.SetRenderWindow(self.window)
         self.interactor.SetPicker(self.picker)

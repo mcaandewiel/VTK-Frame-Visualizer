@@ -1,6 +1,8 @@
+#   @author Christian aan de Wiel
+#   Volume Slice Renderer Module, based on: https://github.com/Kitware/VTK/blob/master/Examples/ImageProcessing/Python/ImageSlicing.py
+
 import vtk
 
-# Volume Slice Renderer Module, based on: https://github.com/Kitware/VTK/blob/master/Examples/ImageProcessing/Python/ImageSlicing.py
 class VolumeSliceRenderer:
     def __init__(self, reader):
         self.reader = reader

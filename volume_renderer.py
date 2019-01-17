@@ -1,6 +1,8 @@
+#   @author Christian aan de Wiel
+#   Volume Renderer Module
+
 import vtk
 
-# Volume Renderer Module
 class VolumeRenderer:
     @staticmethod
     def color():

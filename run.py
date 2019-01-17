@@ -2,9 +2,8 @@
 
 import sys
 
+# Local Imports
 from visualizer import Visualizer
-
-from vtk import vtkMath
 
 def main():
     argc = len(sys.argv)

@@ -1,6 +1,8 @@
+#   @author Christian aan de Wiel
+#   GUI Module
+
 import vtk
 
-# GUI Module
 class GUI:
     def __init__(self):
         self.initializeAxisText()

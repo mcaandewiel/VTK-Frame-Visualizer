@@ -1,9 +1,13 @@
+#   @author Christian aan de Wiel
+#   Volume Reader Module
+
 import vtk
 import sys
 import os
 import random
 
-# Volume Reader Module
+from color_mapper import ColorMapper
+
 class VolumeReader:
     def __init__(self, directory, visualizer, readScalars=True):
         self.index = 0
@@ -33,9 +37,11 @@ class VolumeReader:
         segmentation_path = os.path.join(self.directory, "segmentations", self.files[self.index].replace(".vtk", ""))
         stl_files = sorted(list(filter(lambda x: x[-4:] == '.stl', os.listdir(segmentation_path))))
 
+        self.color_mapper = ColorMapper(len(stl_files))
+
         self.actors = []
         for stl_file in stl_files:
-            self.actors.append(self.visualizer.addMesh(os.path.join(segmentation_path, stl_file), (random.random(), random.random(), random.random())))
+            self.actors.append(self.visualizer.addMesh(os.path.join(segmentation_path, stl_file), self.color_mapper.getNext()))
 
     def output(self):
         return self.reader.GetOutputPort()

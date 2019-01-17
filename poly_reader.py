@@ -1,6 +1,8 @@
+#   @author Christian aan de Wiel
+#   Poly Reader Module
+
 import vtk
 
-# Poly Reader Module
 class PolyReader:
     def __init__(self, filename):
         self.filename = filename
