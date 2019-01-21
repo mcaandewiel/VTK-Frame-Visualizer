@@ -1,7 +1,7 @@
 # VTK-Frame-Visualizer
 ![alt text](https://raw.githubusercontent.com/mcaandewiel/VTK-Frame-Visualizer/master/graphics/general.png)
 
-# Genereal
+# General
 Requirements:
 - VTK: 8.0
 
