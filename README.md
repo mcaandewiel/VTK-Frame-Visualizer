@@ -9,6 +9,21 @@ Run: `python run.py /path/to/volume path/to/segmentation`
 
 The segmentations folder should have directories for all `.vtk` files from the volume folder. For example, if the volume folder contains a file called `knee1_1.vtk`, the segmentation folder must contain a folder named `knee1_1`. The application will automatically read all segmentations (only STL is supported) and map them to an individual color from a generated HSV palette.
 
+    .
+    ├── volume
+    │   ├── knee1_1.vtk
+    │   ├── knee1_2.vtk
+    │   └── knee1_3.vtk
+    └── segmentation
+        ├── knee1_1        
+        │   ├── segmentation_1.stl
+        │   └── segmentation_2.stl
+        ├── knee1_2
+        │   ├── segmentation_1.stl
+        │   └── segmentation_2.stl
+        └── knee1_3
+            ├── segmentation_1.stl
+            └── segmentation_2.stl
 # Interactions
 ## General
 | Keys | Action |
