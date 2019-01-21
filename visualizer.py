@@ -153,7 +153,7 @@ class Visualizer:
     def removeMesh(self, actor):
         self.leftRenderer.RemoveActor(actor)
 
-    def __init__(self, directory):
+    def __init__(self, volume_directory, segmentation_directory):
         self.gui = GUI()
 
         self.is_slicing = False
@@ -181,7 +181,7 @@ class Visualizer:
         self.picker.AddObserver("EndPickEvent", self.annotatePick)
 
         # Intialize the reader
-        self.reader = VolumeReader(directory, self, readScalars=True)
+        self.reader = VolumeReader(volume_directory, segmentation_directory, self, readScalars=True)
         self.volume = None
         self.mesh = None
 

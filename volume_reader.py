@@ -9,12 +9,13 @@ import random
 from color_mapper import ColorMapper
 
 class VolumeReader:
-    def __init__(self, directory, visualizer, readScalars=True):
+    def __init__(self, volume_directory, segmentation_directory, visualizer, readScalars=True):
         self.index = 0
-        self.directory = directory
+        self.volume_directory = volume_directory
+        self.segmentation_directory = segmentation_directory
         self.visualizer = visualizer
         self.actors = []
-        self.files = sorted(list(filter(lambda x: x[-4:] == '.vtk', os.listdir(self.directory))))
+        self.files = sorted(list(filter(lambda x: x[-4:] == '.vtk', os.listdir(self.volume_directory))))
 
         self.reader = vtk.vtkStructuredPointsReader()
 
@@ -26,7 +27,7 @@ class VolumeReader:
         self.unload_segmentations()
         self.load_segmentations()
 
-        self.reader.SetFileName(os.path.join(self.directory, self.files[index]))
+        self.reader.SetFileName(os.path.join(self.volume_directory, self.files[index]))
         self.reader.Update()
 
     def unload_segmentations(self):
@@ -34,7 +35,7 @@ class VolumeReader:
             self.visualizer.removeMesh(actor)
 
     def load_segmentations(self):
-        segmentation_path = os.path.join(self.directory, "segmentations", self.files[self.index].replace(".vtk", ""))
+        segmentation_path = os.path.join(self.segmentation_directory, self.files[self.index].replace(".vtk", ""))
         stl_files = sorted(list(filter(lambda x: x[-4:] == '.stl', os.listdir(segmentation_path))))
 
         self.color_mapper = ColorMapper(len(stl_files))
