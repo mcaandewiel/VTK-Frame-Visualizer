@@ -1,7 +1,16 @@
 # VTK-Frame-Visualizer
+![alt text](https://raw.githubusercontent.com/mcaandewiel/VTK-Frame-Visualizer/master/graphics/general.png)
 
-## Interactions
-### General
+# Genereal
+Requirements:
+- VTK: 8.0
+
+Run: `python run.py /path/to/volume path/to/segmentation`
+
+The segmentations folder should have directories for all `.vtk` files from the volume folder. For example, if the volume folder contains a file called `knee1_1.vtk`, the segmentation folder must contain a folder named `knee1_1`. The application will automatically read all segmentations (only STL is supported) and map them to an individual color from a generated HSV palette.
+
+# Interactions
+## General
 | Keys | Action |
 |-|-|
 |<kbd>&rarr;</kbd>     |     Next timestep    |
@@ -10,7 +19,7 @@
 |<kbd>l</kbd>         | Toggle lower bound edit mode |
 |<kbd>[</kbd>         | Pick point for distance measuring |
 
-### Volumetric Raycasting
+## Volumetric Raycasting
 | Keys | Action |
 |-|-|
 |<kbd>c</kbd>    | Toggle cropping |
@@ -19,7 +28,7 @@
 |(<kbd>shift</kbd>) <kbd>y</kbd>    | Increase/decrease clipping in Y axis |
 |(<kbd>shift</kbd>) <kbd>z</kbd>    | Increase/decrease clipping in Z axis |
 
-### Volumetric Slicing
+## Volumetric Slicing
 | Keys | Action |
 |-|-|
 |<kbd>s</kbd> | Toggle scroll mode |
